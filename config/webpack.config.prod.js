@@ -1,15 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const svgToMiniDataURI = require('mini-svg-data-uri');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
 
 const { getPackageName } = require('../utils/packagename');
 
-const isProduction = false;
+const isProduction = true;
 // const devPort = process.env.PORT || 3000;
 const devPort = 3000; //temporary
 const packageName = getPackageName();
@@ -20,20 +18,17 @@ const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].css' }),
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify('development'),
+      NODE_ENV: JSON.stringify('production'),
     },
   }),
 ];
 
 if (!isProduction) {
   plugins.push(
-    new WebpackNotifierPlugin({ title: { packageName } }),
-    new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(rootDir, 'public/index.html'),
     }),
-    new webpack.HotModuleReplacementPlugin(),
   );
 }
 
@@ -59,24 +54,6 @@ module.exports = {
     filename: 'bundle.js',
   },
   devtool: isProduction ? false : 'inline-source-map',
-  devServer: {
-    contentBase: path.join(rootDir, 'public/'),
-    // disableHostCheck: true,
-    // historyApiFallback: true,
-    // https: false,
-    hot: true,
-    hotOnly: true,
-    publicPath: 'http://localhost:3000/dist/',
-    // index: path.resolve(__dirname, 'src/index.html'),
-    // inline: true,
-    stats: 'errors-only',
-    open: false,
-    overlay: {
-      warnings: true,
-      errors: true,
-    },
-    port: devPort,
-  },
   mode: isProduction ? 'production' : 'development',
   node: {
     __filename: true,
