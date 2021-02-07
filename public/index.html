@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+    <title>Gantt Project</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../dist/semantic.min.css" />
+    <script src="../dist/semantic.min.js"></script> -->
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <script src="../dist/bundle.js"></script>
+    <script>
+      const perfume = new Perfume({
+        firstPaint: true,
+        firstContentfulPaint: true,
+        googleAnalytics: {
+          enable: true,
+          timingVar: 'name',
+        },
+      });
+      setTimeout(() => {
+        const elH1 = document.createElement('H1');
+        elH1.textContent = 'First (Contentful) Paint';
+        document.body.append(elH1);
+      }, 600);
+    </script>
+  </body>
+</html>
